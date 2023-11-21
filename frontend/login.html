@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <!---Material Icons--->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+  <title>login</title>
+</head>
+
+<body>
+  <main>
+    <div class="right">
+      <div id="theme-toggler">
+        <span class="material-symbols-outlined active">light_mode</span>
+        <span class="material-symbols-outlined">dark_mode</span>
+      </div>
+    </div>
+    <div class="box">
+      <div class="inner-box">
+        <div class="forms-wrap">
+          <form action="index.html" autocomplete="off" class="sign-in-form">
+            <div class="logo">
+              <img src="./img/lg.png" alt="easyclass" />
+            </div>
+            <div class="heading">
+              <h2>Bienvenido de Nuevo</h2>
+              <h6>¿Aún no se ha registrado?</h6>
+              <a href="#" class="toggle">Inscríbete</a>
+            </div>
+            <div class="actual-form">
+              <div class="input-wrap">
+                <input id="username_login" type="text" minlength="4" class="input-field" autocomplete="off" required />
+                <label>Nombre</label>
+              </div>
+
+              <div class="input-wrap">
+                <input id="password_login" type="password" minlength="4" class="input-field" autocomplete="off" required />
+                <label>Contraseña</label>
+              </div>
+
+              <input id="submit_login" type="submit" value="Sign In" class="sign-btn" />
+
+              <p class="text">
+                ¿Ha olvidado su contraseña o sus datos de acceso?
+                <a href="#">Get help</a> signing in
+              </p>
+            </div>
+          </form>
+
+          <form action="index.html" autocomplete="off" class="sign-up-form">
+            <div class="logo">
+              <img src="./img/lg.png" alt="easyclass" />
+            </div>
+
+            <div class="heading">
+              <h2>Comenzar</h2>
+              <h6>¿Ya tiene una cuenta?</h6>
+              <a href="#" class="toggle">Iniciar sesión</a>
+            </div>
+
+            <div class="actual-form">
+              <div class="input-wrap">
+                <input id="username_register" type="text" minlength="4" class="input-field" autocomplete="off" required />
+                <label>Nombre</label>
+              </div>
+
+              <div class="input-wrap">
+                <input id="email_register" type="email" class="input-field" autocomplete="off" required />
+                <label>Correo</label>
+              </div>
+
+              <div class="input-wrap">
+                <input id="password_register" type="password" minlength="4" class="input-field" autocomplete="off" required />
+                <label>Contraseña</label>
+              </div>
+
+              <input id="submit_register" type="submit" value="Sign Up" class="sign-btn" />
+
+              <p class="text">
+                Al inscribirme, acepto la
+                <a href="#">Condiciones de servicio</a> and
+                <a href="#">Política de privacidad</a>
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <div class="carousel">
+          <div class="images-wrapper">
+            <img src="./img/1.png" class="image img-1 show" alt="" />
+            <img src="./img/2.png" class="image img-2" alt="" />
+          </div>
+
+          <div class="text-slider">
+            <div class="text-wrap">
+              <div class="text-group">
+                <h2>Crea espacios unicos para tu hogar</h2>
+                <h2>Lleva todas las plantas que quieras</h2>
+              </div>
+            </div>
+
+            <div class="bullets">
+              <span class="active" data-value="1"></span>
+              <span data-value="2"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Javascript file -->
+
+  <script src="js/login.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasboard Jardineria</title>
+    <link rel="shortcut icon" href="img/watering-plants.png" type="image/x-icon">
+    <!---Material Icons--->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <!---Styles--->
+    <link rel="stylesheet" href="css/consultas.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <script src="js/popup.js" defer></script>
+</head>
+
+<body>
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close" onclick="togglePopup()">&times;</span>
+            <h2>Popup</h2>
+            <p>¡Este es un popup centrado!</p>
+        </div>
+    </div>
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="img/lg.png" alt="logo">
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="index.html">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                <a href="iClientes.html">
+                    <span class="material-symbols-outlined">person</span>
+                    <h3>Clientes</h3>
+                </a>
+
+                <a href="iFacturas.html">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    <h3>Facturas</h3>
+                </a>
+
+                <a href="iInventario.html">
+                    <span class="material-symbols-outlined">deployed_code</span>
+                    <h3>Inventario</h3>
+                </a>
+
+                <a href="iOrdenes.html">
+                    <span class="material-symbols-outlined">inventory</span>
+                    <h3>Pedidos</h3>
+                    <span class="message-count">26</span>
+                </a>
+
+                <a href="iOficinas.html">
+                    <span class="material-symbols-outlined">source_environment</span>
+                    <h3>Oficinas</h3>
+                </a>
+
+                <a href="iEmpleados.html">
+                    <span class="material-symbols-outlined">
+                        support_agent
+                    </span>
+                    <h3>Empleados</h3>
+                </a>
+
+                <a href="iUsuarios.html">
+                    <span class="material-symbols-outlined">
+                        group
+                    </span>
+                    <h3>Usuarios</h3>
+                </a>
+
+                <a href="iConsultas.html" class="active">
+                    <span class="material-symbols-outlined">feed</span>
+                    <h3>Información</h3>
+                </a>
+
+                <a href="login.html">
+                    <span class="material-symbols-outlined">logout</span>
+                    <h3>Cerrar Sesion</h3>
+                </a>
+            </div>
+        </aside>
+        <!-----------END OF ASIDE--------------->
+        <main>
+            <h1>Gardens</h1>
+            <div class="insights">
+                <div class="sales popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">corporate_fare</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Lista Oficinas</h1>
+                        </div>
+                    </div>
+                </div>
+                <!------------END OF SALE-------------->
+                <div class="expenses popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">location_city</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Lista Ciudades</h1>
+                        </div>
+                    </div>
+                </div>
+                <!------------END OF EXPENSES-------------->
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">supervisor_account</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Lista Jefes</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">supervisor_account</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Jefe Empresa</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">person</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Lista Clientes Españoles</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">cottage</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Lista Estados</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        request_quote
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pagos 2008</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        notification_important
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pedidos Expirados</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        notification_important
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pedidos Expirados 2009</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        receipt_long
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pedidos Enero</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        payments
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pagos PayPal 2008</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        paid
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Formas de Pago</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        inventory_2
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Ornamentales 100 Stock</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        home
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Madrid Cod 11 y 30</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        face
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Representante de Ventas</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        face
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Cliente Pagos Representante de Ventas</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        face
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Cliente Pagos Representante de Ventas Oficina</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        home_pin
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Oficinas Fuenlabrada</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        info
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Informacion Representante de Ventas</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        groups
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados y Jefes</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        groups
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados, Jefes y Jefes</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        person_add
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Pedido 🚫</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        person_add
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Cliente Gamas</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        local_atm
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Pago 🚫</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        local_convenience_store
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Pedido 🚫</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        finance_chip
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Pago y Pedido 🚫</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        location_away
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados sin Oficina</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        person_off
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados sin Cliente</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        person_off
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados sin Cliente Off</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        person_off
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados sin Cliente ni Off</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        inventory
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Productos Pedido</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        inventory_2
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Productos</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        grocery
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Gama Frutales</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        production_quantity_limits
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pedido 🚫 Pago</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        supervised_user_circle
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados 🚫 Clientes</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        location_home
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados Compañia</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        travel_explore
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Pais</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        euro_symbol
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pago Medio 2009</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        add_business
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pedidos por Estado</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        orders
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Producto Max y Min</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        location_away
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Empresa</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        location_away
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Madrid</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        location_away
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Ciudades M</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        engineering
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Atendidos</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        calendar_month
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Fecha Pago</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        pending_actions
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Productos Pedidos</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        inventory_2
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Total Productos</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        inventory_2
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>20 Productos</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        auto_stories
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Facturacion Historica</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        qr_code_2
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Cod Historica</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        qr_code_2
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>OR Historica</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        shopping_cart
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Ventas 3000</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        calendar_month
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pagos Año</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        emoji_people
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Cliente Max Credito</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        category
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Producto mas Caro</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        add_shopping_cart
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Produto Mas Vendido</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        interactive_space
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Credito Pagos</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        conveyor_belt
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Producto Max Stock</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        conveyor_belt
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Producto Min Stock</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        contacts_product
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Alberto Soria</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        contact_mail
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Cliente Max Credito</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        contact_mail
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Producto mas Caro</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">
+                        deployed_code_update
+                        </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pedidos Realizados</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">stacked_line_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes Total</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">stacked_line_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Pedidos 2008</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">stacked_line_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Info Clientes</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">stacked_line_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Clientes</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">stacked_line_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Empleados 🚫 Ventas</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="income popupPointer" onclick="togglePopup()">
+                    <span class="material-symbols-outlined">stacked_line_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h1>Ciudades Oficinas</h1>
+                        </div>
+                    </div>
+                </div>
+                <!------------END OF INCOME-------------->
+            </div>
+        </main>
+        <!-------------------END OF MAIN--------------------->
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div id="theme-toggler">
+                    <span class="material-symbols-outlined active">light_mode</span>
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+    <!-- Cambia "js/order,js" a "js/order.js" -->
+    <script src="js/orders.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+
+</html>

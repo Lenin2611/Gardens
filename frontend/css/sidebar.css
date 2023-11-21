@@ -1,0 +1,14 @@
+aside .logo {
+    display: flex;
+    gap: 0.8rem;
+    position: fixed;
+    top: 1.4rem;
+}
+
+aside .sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    position: fixed;
+    top: 15rem;
+}
