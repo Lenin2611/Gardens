@@ -48,49 +48,6 @@ bullets.forEach((bullet) => {
     themeToggler.querySelector("span:nth-child(2)").classList.toggle("active");
   });
 
-//LOGIN
-document.querySelector('#submit_login').addEventListener('click', async function(event) {
-  event.preventDefault();
-  const form = this.closest('form');
-  const usernameInputLogin = document.querySelector('#username_login');
-  const passwordInputLogin = document.querySelector('#password_login');
-  
-  if (form.checkValidity()) {
-    const usernameLogin = usernameInputLogin.value;
-    const passwordLogin = passwordInputLogin.value;
-    let errorField;
-    let errorText;
-    try {
-      const token = await login(usernameLogin, passwordLogin);
-      if (token == "User not found." || token == "Wrong password." || token == null || token == undefined) {
-        if (token == "Wrong password."){
-          errorField = document.querySelector('#password_login');
-          errorText = document.createElement('span');
-          errorText.textContent = "Wrong password";
-        } else {
-          errorField = document.querySelector('#username_login');
-          errorText = document.createElement('span');
-          errorText.textContent = "User not found";
-          console.log("User not found");
-        }
-        errorText.classList.add('error-message');
-        const existingErrorMessage = document.querySelector('.error-message');
-        if (existingErrorMessage) {
-          existingErrorMessage.remove();
-        }
-        errorField.parentNode.appendChild(errorText);
-        console.log(token);
-      } else {
-        localStorage.setItem('token', token);
-        window.location.href = 'index.html';
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    form.reportValidity();
-  }
-});
 
 
 document.querySelector('#submit_register').addEventListener('click', async function(event) {

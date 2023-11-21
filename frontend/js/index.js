@@ -1,66 +1,73 @@
+const token = localStorage.getItem('token');
 
-document.addEventListener('DOMContentLoaded', function() {
-  const token = getToken();
-  const base64Url = token.split('.')[1]; // Obtiene la parte base64 del token
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Reemplaza caracteres especiales
-  const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-  
-  const decodedToken = JSON.parse(jsonPayload);
-  
-  console.log(decodedToken);
-  const sideMenu = document.querySelector("aside");
-  const menuBtn = document.querySelector("#menu-btn");
-  const closeBtn = document.querySelector("#close-btn");
-  const themeToggler = document.getElementById('theme-toggler');
-
-  // show sidebar
-  menuBtn.addEventListener("click", () => {
-    sideMenu.style.display = "block";
-  });
-
-  // close sidebar
-  closeBtn.addEventListener("click", () => {
-    sideMenu.style.display = "none";
-  });
-
-  // change theme
-  themeToggler.addEventListener("click", () => {
-    document.body.classList.toggle("dark-theme-variables");
-
-    // Asegúrate de que las clases se estén aplicando correctamente
-    themeToggler.querySelector("span:nth-child(1)").classList.toggle("active");
-    themeToggler.querySelector("span:nth-child(2)").classList.toggle("active");
-  });
-
-  // Función para realizar solicitudes al backend con el token
-   // Función para realizar solicitudes al backend con el token Bearer
-  async function fetchData(url) {
-    const token = getToken();
-
-    try {
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Manejar los datos obtenidos del backend
-        console.log('Data from server:', data);
-        // Por ejemplo, puedes llenar tablas con estos datos o realizar otras acciones en el frontend
-      } else {
-        throw new Error('Error en la solicitud al servidor');
+async function getDataWithBearerToken(url, token) {
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'accept': 'text/plain'
       }
-    } catch (error) {
-      // Manejar errores de la solicitud
-      console.error(error);
+    });
+
+    if (response.ok) {
+      console.log(response);
+      console.log(true);
+      return true;
+    } else {
+      console.log(false);
+      return false;
+    }
+  } catch (error) {
+    console.error(error);
+    console.log(false);
+    return false;
+  }
+}
+async function checkToken() {
+  let valid = await getDataWithBearerToken("http://localhost:5280/api/Auth", token);
+  let jsonPayload;
+  try {
+
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  }
+  catch {
+    console.log("Ooops")
+    if (valid === false) {
+      console.log("401 Unauthorized");
+      window.location.href = '../html-admin/html401.html';
     }
   }
-  function getToken() {
-    return localStorage.getItem('token');
-  }
+  decodedToken = JSON.parse(jsonPayload);
+}
+checkToken();
+
+
+
+const sideMenu = document.querySelector("aside");
+const menuBtn = document.querySelector("#menu-btn");
+const closeBtn = document.querySelector("#close-btn");
+const themeToggler = document.getElementById('theme-toggler');
+
+// show sidebar
+menuBtn.addEventListener("click", () => {
+  sideMenu.style.display = "block";
+});
+
+// close sidebar
+closeBtn.addEventListener("click", () => {
+  sideMenu.style.display = "none";
+});
+
+// change theme
+themeToggler.addEventListener("click", () => {
+  document.body.classList.toggle("dark-theme-variables");
+
+  // Asegúrate de que las clases se estén aplicando correctamente
+  themeToggler.querySelector("span:nth-child(1)").classList.toggle("active");
+  themeToggler.querySelector("span:nth-child(2)").classList.toggle("active");
 });

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
 using API.DtosSec;
+using API.Helpers;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -13,7 +14,10 @@ using Microsoft.IdentityModel.Tokens;
 using Persistence.Data;
 
 namespace API.Controllers
+
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class PagoController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -27,7 +31,8 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet] // 2611
+        [HttpGet]
+        [ApiVersion("1.0")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<PagoDto>>> Get()
@@ -35,6 +40,16 @@ namespace API.Controllers
             var results = await _unitOfWork.Pagos.GetAllAsync();
             return _mapper.Map<List<PagoDto>>(results);
         }
+
+        // [HttpGet]
+        // [ApiVersion("1.1")] // 2611
+        // [ProducesResponseType(StatusCodes.Status200OK)]
+        // [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        // public async Task<ActionResult<IEnumerable<PagoDto>>> Get11([FromQuery] Params _params)
+        // {
+        //     var pager = new Pager<PagoDto>(PagoDto, PagoDto.Count(),_params.PageIndex, _params.PageSize, _params.Search);
+        // return CreatedAtAction(nameof(Get), pager);
+        // }
 
         [HttpGet("{id}")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -118,6 +133,7 @@ namespace API.Controllers
         }
 
         [HttpGet("clientes2008")] // 2611
+        [MapToApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -131,7 +147,8 @@ namespace API.Controllers
             return _mapper.Map<List<ClienteIdDto>>(result);
         }
 
-        [HttpGet("clientesdate{año}")] // 2611
+        [HttpGet("clientes2008{año}")] // 2611
+        [MapToApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
