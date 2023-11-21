@@ -41,15 +41,15 @@ namespace API.Controllers
             return _mapper.Map<List<PagoDto>>(results);
         }
 
-        // [HttpGet]
-        // [ApiVersion("1.1")] // 2611
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        // public async Task<ActionResult<IEnumerable<PagoDto>>> Get11([FromQuery] Params _params)
-        // {
-        //     var pager = new Pager<PagoDto>(PagoDto, PagoDto.Count(),_params.PageIndex, _params.PageSize, _params.Search);
-        // return CreatedAtAction(nameof(Get), pager);
-        // }
+        [HttpGet]
+        [ApiVersion("1.1")] // 2611
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<PagoDto>>> Get11()
+        {
+            var results = await _unitOfWork.Pagos.GetAllAsync();
+            return _mapper.Map<List<PagoDto>>(results);
+        }
 
         [HttpGet("{id}")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -50,7 +50,7 @@ namespace API.Extensions
                     {
                         Endpoint = "*",  // Si quiere usar todos ponga *
                         Period = "5s", // Periodo de tiempo para hacer peticiones
-                        Limit = 10         // Numero de peticiones durante el periodo de tiempo
+                        Limit = 8         // Numero de peticiones durante el periodo de tiempo
                     }
                 };
             });

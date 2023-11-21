@@ -30,7 +30,7 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "Person")]
         public ActionResult<string> GetMyName()
         {
             return Ok(_userService.GetMyName());
@@ -45,7 +45,7 @@ namespace API.Controllers
             //return Ok(new { userName, roles, roles2 });
         }
 
-        [HttpGet("usuarios")]
+        [HttpGet("usuarios"), Authorize(Roles = "Administrator")]
         public IActionResult GetUsuarios()
         {
             var query = from usuario in _context.Users
