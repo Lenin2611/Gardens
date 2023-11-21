@@ -165,10 +165,17 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public int GetCantidadClientes()
+        public IActionResult GetCantidadClientes()
         {
-            int result = _context.Clientes.Count();
-            return result;
+            var query = (from cliente in _context.Clientes
+                    select new
+                    {
+                        Cantidad = _context.Clientes.Count()
+                    }).Distinct();
+
+            List<object> result = query.ToList<object>();
+
+            return Ok(result);
         }
 
         [HttpGet("cantidadclientesmadrid")] // 2611

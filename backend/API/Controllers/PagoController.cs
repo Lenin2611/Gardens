@@ -117,13 +117,13 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpGet("clientesyear{año}")] // 2611
+        [HttpGet("clientes2008")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<ClienteIdDto>>> GetClientesByYear(int año)
+        public async Task<ActionResult<List<ClienteIdDto>>> GetClientesByYear()
         {
-            var result = await _unitOfWork.Pagos.GetClientesByYearAsync(año);
+            var result = await _unitOfWork.Pagos.GetClientesByYearAsync(2008);
             if (result.IsNullOrEmpty())
             {
                 return NotFound();
@@ -166,15 +166,15 @@ namespace API.Controllers
         public async Task<ActionResult<List<PagoIDFechaTotalDto>>> GetOficinasYCiudades()
         {
             var results = await (from pago in _context.Pagos
-                                 join formapago in _context.Formapagos on pago.IdFormaPagoFk equals formapago.Id
-                                 where formapago.Nombre.Trim().ToLower() == "paypal" && pago.FechaPago.Year == 2008
-                                 select new PagoIDFechaTotalDto
-                                 {
-                                     Id = pago.Id,
-                                     FechaPago = pago.FechaPago,
-                                     Total = pago.Total,
-                                     FormaPago = formapago.Nombre
-                                 })
+                                join formapago in _context.Formapagos on pago.IdFormaPagoFk equals formapago.Id
+                                where formapago.Nombre.Trim().ToLower() == "paypal" && pago.FechaPago.Year == 2008
+                                select new PagoIDFechaTotalDto
+                                {
+                                    Id = pago.Id,
+                                    FechaPago = pago.FechaPago,
+                                    Total = pago.Total,
+                                    FormaPago = formapago.Nombre
+                                })
                         .ToListAsync();
             return results;
         }
@@ -183,10 +183,17 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public decimal GetPagosMedia2009()
+        public IActionResult GetPagosMedia2009()
         {
-            var result = _unitOfWork.Pagos.GetPagosMedia2009();
-            return result;
+            var query = (from empleado in _context.Pagos
+                    select new
+                    {
+                        Cantidad = _unitOfWork.Pagos.GetPagosMedia2009()
+                    }).Distinct();
+
+            List<object> result = query.ToList<object>();
+
+            return Ok(result);
         }
 
         [HttpGet("fechasPrimerUltimoPagoClientes")]

@@ -108,13 +108,13 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpGet("empleados7{id}")] // 2611
+        [HttpGet("empleados7")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<EmpleadoNombreApellidosEmailDto>>> GetEmpleadosByJefe(int id)
+        public async Task<ActionResult<List<EmpleadoNombreApellidosEmailDto>>> GetEmpleadosByJefe()
         {
-            var result = await _unitOfWork.Empleados.GetEmpleadoByJefe(id);
+            var result = await _unitOfWork.Empleados.GetEmpleadoByJefe(7);
             if (result.IsNullOrEmpty())
             {
                 return NotFound();
@@ -130,7 +130,7 @@ namespace API.Controllers
         {
             var results = await (from puesto in _context.Puestos
                         join empleado in _context.Empleados on puesto.Id equals empleado.IdPuestoFk
-                        where puesto.Nombre.ToLower().Trim() == "jefe"
+                        where puesto.Nombre.ToLower().Trim() == "director general"
                         select new EmpleadoPuestoNombreApellidosEmailDto
                         {
                             Puesto = puesto.Nombre,
@@ -165,10 +165,17 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public string GetCantidadEmpleados()
+        public IActionResult GetCantidadClientes()
         {
-            int result = _context.Empleados.Count();
-            return $"Hay {result} empleados en la compañia Gardens";
+            var query = (from empleado in _context.Empleados
+                    select new
+                    {
+                        Cantidad = _context.Empleados.Count()
+                    }).Distinct();
+
+            List<object> result = query.ToList<object>();
+
+            return Ok(result);
         }
         [HttpGet("empleadosConJefes")]
         [ProducesResponseType(StatusCodes.Status200OK)]

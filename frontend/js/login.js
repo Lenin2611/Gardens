@@ -108,6 +108,7 @@ document.querySelector('#submit_register').addEventListener('click', async funct
     register(emailRegister, usernameRegister, passwordRegister)
       .then(result => console.log(result))
       .catch(error => console.error(error));
+      
   } else {
     form.reportValidity();
   }

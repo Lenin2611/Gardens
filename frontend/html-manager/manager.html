@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dasboard Jardineria</title>
-    <link rel="shortcut icon" href="img/watering-plants.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/watering-plants.png" type="image/x-icon">
     <!---Material Icons--->
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <!---Styles--->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="img/lg.png" alt="logo">
+                    <img src="../img/lg.png" alt="logo">
                 </div>
                 <div class="close" id="close-btn">
                     <span class="material-symbols-outlined">
@@ -28,127 +28,55 @@
                 </div>
             </div>
 
-            <div class="sidebar">
-                <a href="#" class="active">
+            <div class="sidebar" >
+                <a href="manager.html" class="active">
                     <span class="material-symbols-outlined">grid_view</span>
                     <h3>Dashboard</h3>
                 </a>
 
-                <a href="iClientes.html">
+                <a href="mClientes.html">
                     <span class="material-symbols-outlined">person</span>
                     <h3>Clientes</h3>
                 </a>
 
-                <a href="iFacturas.html">
+                <a href="mFacturas.html">
                     <span class="material-symbols-outlined">receipt_long</span>
                     <h3>Facturas</h3>
                 </a>
 
-                <a href="iInventario.html">
+                <a href="mInventario.html">
                     <span class="material-symbols-outlined">deployed_code</span>
                     <h3>Inventario</h3>
                 </a>
 
-                <a href="iOrdenes.html">
+                <a href="mOrdenes.html">
                     <span class="material-symbols-outlined">inventory</span>
                     <h3>Pedidos</h3>
                     <span class="message-count">26</span>
                 </a>
 
-                <a href="iOficinas.html">
+                <a href="mOficinas.html">
                     <span class="material-symbols-outlined">source_environment</span>
                     <h3>Oficinas</h3>
                 </a>
 
-                <a href="iEmpleados.html">
+                <a href="mEmpleados.html">
                     <span class="material-symbols-outlined">
                         support_agent
                         </span>
                     <h3>Empleados</h3>
                 </a>
 
-                <a href="iUsuarios.html">
-                    <span class="material-symbols-outlined">
-                        group
-                        </span>
-                    <h3>Usuarios</h3>
-                </a>
-
-                <a href="iConsultas.html">
-                    <span class="material-symbols-outlined">feed</span>
-                    <h3>Información</h3>
-                </a>
-
                 <a href="login.html">
                     <span class="material-symbols-outlined">logout</span>
-                    <h3>Cerrar Sesion</h3>
+                    <h3>Cerrar Sesión</h3>
                 </a>
             </div>
         </aside>
         <!-----------END OF ASIDE--------------->
         <main>
             <h1>Gardens</h1>
-            <div class="insights">
-                <div class="sales">
-                    <span class="material-symbols-outlined">analytics</span>
-                    <div class="middle">
-                        <div class="left">
-                            <h3>Total Ventas</h3>
-                            <h1>$3,550</h1>
-                        </div>
-                        <div class="progress">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="number">
-                                <p>81%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <small class="text-muted">Ultimas 24 Horas</small>
-                </div>
-                <!------------END OF SALE-------------->
-                <div class="expenses">
-                    <span class="material-symbols-outlined">bar_chart</span>
-                    <div class="middle">
-                        <div class="left">
-                            <h3>Gastos</h3>
-                            <h1>$2,460</h1>
-                        </div>
-                        <div class="progress">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="number">
-                                <p>61%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <small class="text-muted">Ultimas 24 Horas</small>
-                </div>
-                <!------------END OF EXPENSES-------------->
-                <div class="income">
-                    <span class="material-symbols-outlined">stacked_line_chart</span>
-                    <div class="middle">
-                        <div class="left">
-                            <h3>Ingresos</h3>
-                            <h1>$3,100</h1>
-                        </div>
-                        <div class="progress">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="number">
-                                <p>45%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <small class="text-muted">Ultimas 24 Horas</small>
-                </div>
-                <!------------END OF INCOME-------------->
-            </div>
             <!------------END OF INSIDES-------------->
-
             <div class="recent-orders">
                 <h2>Pagos Recientes</h2>
                 <table>
@@ -186,10 +114,10 @@
                 <div class="profile">
                     <div class="info">
                         <p>Hey <b>Brayan</b></p>
-                        <small class="text-muted">Admin</small>
+                        <small class="text-muted">Manager</small>
                     </div>
                     <div class="profile-photo">
-                        <img src="img/profile-1.jpg" alt="foto">
+                        <img src="../img/profile-1.jpg" alt="foto">
                     </div>
                 </div>
             </div>
@@ -199,7 +127,7 @@
                 <div class="updates">
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="img/profile-2.jpg" alt="">
+                            <img src="../img/profile-2.jpg" alt="">
                         </div>
                         <div class="message">
                             <p><b>Lenin Muñoz</b> received its zungla plant </p>
@@ -208,7 +136,7 @@
                     </div>
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="img/profile-3.jpg" alt="">
+                            <img src="../img/profile-3.jpg" alt="">
                         </div>
                         <div class="message">
                             <p><b>Sara Acevedo</b> received its zungla plant </p>
@@ -217,7 +145,7 @@
                     </div>
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="img/profile-4.jpg" alt="">
+                            <img src="../img/profile-4.jpg" alt="">
                         </div>
                         <div class="message">
                             <p><b>Cristina Reyes</b> received its zungla plant </p>
@@ -274,9 +202,9 @@
         </div>
     </div>
     <!-- Cambia "js/order,js" a "js/order.js" -->
-<script src="js/orders.js"></script>
-<script src="js/index.js"></script>
-<script type="module" src="js/clientes.js"></script>
+<script src="../js/orders.js"></script>
+<script src="../js/index.js"></script>
+<script type="module" src="../js/clientes.js"></script>
 </body>
 
 </html>

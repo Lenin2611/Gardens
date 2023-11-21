@@ -54,6 +54,7 @@ namespace API.Profiles
             CreateMap<Cliente, ClienteSinPagoDto>().ReverseMap();
             CreateMap<Empleado, EmpleadoSoriaDto>().ReverseMap();
             CreateMap<Detallepedido, DetalleNombreDto>().ReverseMap();
+            CreateMap<Empleado, ClientesCantidadPaisDto>().ReverseMap();
 
             CreateMap<Cliente, ClienteRepresentanteVentasDto>().ReverseMap();
             CreateMap<ClientePagosRepresentanteDto, Cliente>().ReverseMap();

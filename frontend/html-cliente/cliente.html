@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dasboard Jardineria</title>
-    <link rel="shortcut icon" href="img/watering-plants.png" type="image/x-icon">
+    <title>Dashboard Jardineria</title>
+    <link rel="shortcut icon" href="../img/watering-plants.png" type="image/x-icon">
     <!---Material Icons--->
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <!---Styles--->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="img/lg.png" alt="logo">
+                    <img src="../img/lg.png" alt="logo">
                 </div>
                 <div class="close" id="close-btn">
                     <span class="material-symbols-outlined">
@@ -29,71 +29,43 @@
             </div>
 
             <div class="sidebar">
-                <a href="#">
+                <a href="cliente.html" class="active">
                     <span class="material-symbols-outlined">grid_view</span>
-                    <h3>Dashboard</h3>
+                    <h3>Principal</h3>
                 </a>
 
-                <a href="#" class="active">
-                    <span class="material-symbols-outlined">person</span>
-                    <h3>Clientes</h3>
-                </a>
-
-                <a href="#">
+                <a href="cFacturas.html">
                     <span class="material-symbols-outlined">receipt_long</span>
                     <h3>Facturas</h3>
                 </a>
 
-                <a href="#">
+                <a href="cInventario.html">
                     <span class="material-symbols-outlined">deployed_code</span>
                     <h3>Inventario</h3>
                 </a>
 
-                <a href="#">
+                <a href="cOrdenes.html">
                     <span class="material-symbols-outlined">inventory</span>
                     <h3>Pedidos</h3>
-                    <span class="message-count">26</span>
+                    <span class="message-count">2</span>
                 </a>
 
-                <a href="#">
-                    <span class="material-symbols-outlined">source_environment</span>
-                    <h3>Oficinas</h3>
-                </a>
-
-                <a href="#">
-                    <span class="material-symbols-outlined">
-                        support_agent
-                        </span>
-                    <h3>Empleados</h3>
-                </a>
-
-                <a href="iConsultas.html">
-                    <span class="material-symbols-outlined">feed</span>
-                    <h3>Información</h3>
-                </a>
-
-                <a href="#">
+                <a href="login.html">
                     <span class="material-symbols-outlined">logout</span>
-                    <h3>Cerrar Sesion</h3>
+                    <h3>Cerrar Sesión</h3>
                 </a>
             </div>
         </aside>
         <!-----------END OF ASIDE--------------->
         <main>
-            <h1>Dashboard</h1>
-
-            <div class="date">
-                <span>Fecha:</span>
-                <input type="date">
-            </div>
-
+            <h1>Gardens</h1>
             <div class="insights">
                 <div class="sales">
                     <span class="material-symbols-outlined">analytics</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Total Ventas</h3>
-                            <h1>$25,024</h1>
+                            <h3>Total Pagos</h3>
+                            <h1>$1,250</h1>
                         </div>
                         <div class="progress">
                             <svg>
@@ -111,8 +83,8 @@
                     <span class="material-symbols-outlined">bar_chart</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Gastos</h3>
-                            <h1>$14,160</h1>
+                            <h3>Deudas</h3>
+                            <h1>$545</h1>
                         </div>
                         <div class="progress">
                             <svg>
@@ -130,8 +102,8 @@
                     <span class="material-symbols-outlined">stacked_line_chart</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Ingresos</h3>
-                            <h1>$10,802</h1>
+                            <h3>Ahorrado</h3>
+                            <h1>$230</h1>
                         </div>
                         <div class="progress">
                             <svg>
@@ -149,18 +121,18 @@
             <!------------END OF INSIDES-------------->
 
             <div class="recent-orders">
-                <h2>Ordenes Recientes</h2>
+                <h2>Pagos Recientes</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>Nombre Producto</th>
-                            <th>Numero Producto</th>
-                            <th>Pago</th>
-                            <th>Estado</th>
+                            <th>Id</th>
+                            <th>Fecha Pago</th>
+                            <th>Total</th>
+                            <th>Id Cliente</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="pagos">
                         <!-- <tr>
                             <td>Planta para cerca zungla</td>
                             <td>15000</td>
@@ -170,7 +142,6 @@
                         </tr> -->
                     </tbody>
                 </table>
-                <a href="#">Show All</a>
             </div>
         </main>
         <!-------------------END OF MAIN--------------------->
@@ -189,7 +160,7 @@
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
-                        <img src="img/profile-1.jpg" alt="foto">
+                        <img src="../img/profile-1.jpg" alt="foto">
                     </div>
                 </div>
             </div>
@@ -199,36 +170,36 @@
                 <div class="updates">
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="img/profile-2.jpg" alt="">
+                            <img src="../img/profile-1.jpg" alt="">
                         </div>
                         <div class="message">
-                            <p><b>Lenin Muñoz</b>received its zungla plant </p>
+                            <p><b>Brayan Martinez</b> you received a zungla plant </p>
                             <small class="text-muted">Recibido hace 2 minutos</small>
                         </div>
                     </div>
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="img/profile-3.jpg" alt="">
+                            <img src="../img/profile-1.jpg" alt="">
                         </div>
                         <div class="message">
-                            <p><b>Sara Acevedo</b>received its zungla plant </p>
-                            <small class="text-muted">Recibido hace 2 minutos</small>
+                            <p><b>Brayan Martinez</b> you received a zungla plant </p>
+                            <small class="text-muted">Recibido hace 8 minutos</small>
                         </div>
                     </div>
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="img/profile-4.jpg" alt="">
+                            <img src="../img/profile-1.jpg" alt="">
                         </div>
                         <div class="message">
-                            <p><b>Cristina Reyes</b>received its zungla plant </p>
-                            <small class="text-muted">Recibido hace 2 minutos</small>
+                            <p><b>Brayan Martinez</b> you received a zungla plant</p>
+                            <small class="text-muted">Recibido hace 1 minutos</small>
                         </div>
                     </div>
                 </div>
             </div>
             <!-------------------------END OF RECENT UPDATES------------------------->
             <div class="sales-analytics">
-                <h2>Análisis de ventas</h2>
+                <h2>Análisis de compras</h2>
                 <div class="item online">
                     <div class="icon">
                         <span class="material-symbols-outlined">shopping_cart</span>
@@ -238,8 +209,8 @@
                             <h3>ORDENES ONLINE</h3>
                             <small class="text-muted">Ultimas 24 Horas</small>
                         </div>
-                        <h5 class="success">+39%</h5>
-                        <h3>3849</h3>
+                        <h5 class="success">+19%</h5>
+                        <h3>2</h3>
                     </div>
                 </div>
 
@@ -252,8 +223,8 @@
                             <h3>ORDENES OFFLINE</h3>
                             <small class="text-muted">Ultimas 24 Horas</small>
                         </div>
-                        <h5 class="danger">-19%</h5>
-                        <h3>11000</h3>
+                        <h5 class="danger">-9%</h5>
+                        <h3>1</h3>
                     </div>
                 </div>
 
@@ -263,26 +234,20 @@
                     </div>
                     <div class="right">
                         <div class="info">
-                            <h3>NUEVOS CLIENTES</h3>
+                            <h3>ORDENES RECIVIDAS</h3>
                             <small class="text-muted">Ultimas 24 Horas</small>
                         </div>
                         <h5 class="success">+25%</h5>
-                        <h3>233</h3>
-                    </div>
-                </div>
-                <div class="item add-product">
-                    <div>
-                        <span class="material-symbols-outlined">add</span>
-                        <h3>Agregar Producto</h3>
+                        <h3>3</h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Cambia "js/order,js" a "js/order.js" -->
-<script src="js/orders.js"></script>
-<script src="js/index.js"></script>
-
+<script src="../js/orders.js"></script>
+<script src="../js/index.js"></script>
+<script type="module" src="../js/clientes.js"></script>
 </body>
 
 </html>

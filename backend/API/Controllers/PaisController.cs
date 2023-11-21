@@ -123,13 +123,13 @@ namespace API.Controllers
         //     return _mapper.Map<DireccionClienteDto>(result);
         // }
 
-        [HttpGet("clientes{pais}")] // 2611
+        [HttpGet("clientesespaña")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<ClienteNombreDto>>> GetClientesByPais(string pais)
+        public async Task<ActionResult<List<ClienteNombreDto>>> GetClientesByPais()
         {
-            var result = await _unitOfWork.Paises.GetClientesAsync(pais);
+            var result = await _unitOfWork.Paises.GetClientesAsync("españa");
             if (result.IsNullOrEmpty())
             {
                 return NotFound();
@@ -137,18 +137,18 @@ namespace API.Controllers
             return _mapper.Map<List<ClienteNombreDto>>(result);
         }
 
-        [HttpGet("oficinas{nombre}")] // 2611
+        [HttpGet("oficinasespaña")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<OficinaIdTelefonoDto>>> GetOficinasByPais(string nombre)
+        public async Task<ActionResult<List<OficinaIdTelefonoDto>>> GetOficinasByPais()
         {
             var results = await (from oficina in _context.Oficinas
                         join direccion in _context.Direcciones on oficina.Id equals direccion.IdOficinaFk
                         join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
                         join region in _context.Regiones on ciudad.IdRegionFk equals region.Id
                         join pais in _context.Paises on region.IdPaisFk equals pais.Id
-                        where pais.Nombre == nombre
+                        where pais.Nombre == "España"
                         select new OficinaIdTelefonoDto
                         {
                             Id = oficina.Id,

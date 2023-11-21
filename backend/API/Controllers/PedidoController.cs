@@ -205,13 +205,13 @@ namespace API.Controllers
             return _mapper.Map<List<PedidoDto>>(result);
         }
 
-        [HttpGet("pedidoenero{año}")] // 2611
+        [HttpGet("pedidoenero")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<PedidoDto>>> GetPedidoEnero(int año)
+        public async Task<ActionResult<List<PedidoDto>>> GetPedidoEnero()
         {
-            var result = await _unitOfWork.Pedidos.GetPedidosEnero(año);
+            var result = await _unitOfWork.Pedidos.GetPedidosEnero();
             if (result.IsNullOrEmpty())
             {
                 return NotFound();

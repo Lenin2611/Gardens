@@ -134,6 +134,30 @@ b {
     color: var(--color-warning);
 }
 
+.bg-sccss-green:hover {
+    background-color: var(--color-success) !important;
+}
+
+.bg-sccss-greenx {
+    background-color: var(--color-success) !important;
+}
+
+.bg-sccss-blue:hover {
+    background-color: #7380ec !important;
+}
+
+.bg-sccss-red:hover {
+    background-color: #ff7782 !important;
+}
+
+.bg-sccss-bluex {
+    background-color: #7380ec !important;
+}
+
+.bg-sccss-redx {
+    background-color: #ff7782 !important;
+}
+
 aside {
     height: 100vh;
 }
@@ -274,6 +298,30 @@ main .insights > div span{
     border-radius: 50%;
     color: var(--color-white);
     font-size: 2rem;
+}
+
+main .insights #blue span{
+    background:var(--color-primary);
+}
+
+#madrid1130 span,
+#paypal span,
+#dosdias span,
+#jefe span,
+#estados span
+{
+    background:var(--color-primary);
+}
+
+#formapago span,
+#pedidos2009 span,
+#clientes2008 span,
+#norep  span {
+    background:var(--color-danger);
+}
+
+main .insights #red span{
+    background:var(--color-danger);
 }
 
 main .insights > div.expenses span{

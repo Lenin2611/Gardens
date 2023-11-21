@@ -117,19 +117,13 @@ namespace API.Controllers
             var results = await (from oficina in _context.Oficinas
                         join direccion in _context.Direcciones on oficina.Id equals direccion.IdOficinaFk
                         join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
-                        select new { Oficina = oficina, Ciudad = ciudad })
+                        select new OficinaIdCiudadNombreDto
+                        {
+                            NombreCiudad = ciudad.Nombre,
+                            IdOficina = oficina.Id
+                        })
                         .ToListAsync();
-
-            var groupedResults = results.GroupBy(r => r.Ciudad.Nombre)
-                                        .Select(group => new OficinaIdCiudadNombreDto
-                                        {
-                                            NombreCiudad = group.Key,
-                                            Oficinas = group.Select(r => new OficinaIdDto
-                                            {
-                                                IdOficina = r.Oficina.Id,
-                                            }).ToList()
-                                        }).ToList();
-            return groupedResults;
+            return results;
         }
 
         

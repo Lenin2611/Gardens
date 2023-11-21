@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Jardineria</title>
+    <link rel="shortcut icon" href="../img/watering-plants.png" type="image/x-icon">
+    <!---Material Icons--->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <!---Styles--->
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/consultas.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close" onclick="togglePopup()">&times;</span>
+            <h2>Popup</h2>
+            <p>¡Este es un popup centrado!</p>
+        </div>
+    </div>
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="../img/lg.png" alt="logo">
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="manager.html">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                <a href="mClientes.html">
+                    <span class="material-symbols-outlined">person</span>
+                    <h3>Clientes</h3>
+                </a>
+
+                <a href="mFacturas.html">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    <h3>Facturas</h3>
+                </a>
+
+                <a href="mInventario.html">
+                    <span class="material-symbols-outlined">deployed_code</span>
+                    <h3>Inventario</h3>
+                </a>
+
+                <a href="mOrdenes.html">
+                    <span class="material-symbols-outlined">inventory</span>
+                    <h3>Pedidos</h3>
+                    <span class="message-count">26</span>
+                </a>
+
+                <a href="mOficinas.html">
+                    <span class="material-symbols-outlined">source_environment</span>
+                    <h3>Oficinas</h3>
+                </a>
+
+                <a href="mEmpleados.html" class="active">
+                    <span class="material-symbols-outlined">
+                        support_agent
+                    </span>
+                    <h3>Empleados</h3>
+                </a>
+
+                <a href="login.html">
+                    <span class="material-symbols-outlined">logout</span>
+                    <h3>Cerrar Sesión</h3>
+                </a>
+            </div>
+        </aside>
+        <!-----------END OF ASIDE--------------->
+        <main>
+            <h1>Gardens</h1>
+            <div class="recent-orders">
+                <h2>Empleados</h2>
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo Electrónico</th>
+                            <th>Id Oficina</th>
+                        </tr>
+                    </thead>
+                    <tbody id="empleados">
+                        <!-- Los datos de la tabla se agregarán aquí mediante JavaScript -->
+                    </tbody>
+                    <tbody>
+                        <!-- <tr>
+                        <td>Planta para cerca zungla</td>
+                        <td>15000</td>
+                        <td>Debido</td>
+                        <td class="warning">Pendiente</td>
+                        <td class="primary">Detalles</td>
+                    </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <!-------------------END OF MAIN--------------------->
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div id="theme-toggler">
+                    <span class="material-symbols-outlined active">light_mode</span>
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey <b>Brayan</b></p>
+                        <small class="text-muted">Manager</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="../img/profile-1.jpg" alt="foto">
+                    </div>
+                </div>
+            </div>
+            <!-- Cambia "js/order,js" a "js/order.js" -->
+
+            <div class="sales-analytics">
+                <h2>Cambios</h2>
+                <div class="item online bg-sccss-green popupPointer" onclick="togglePopup()">
+                    <div class="icon bg-sccss-greenx">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>AGREGAR</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item offline bg-sccss-blue popupPointer" onclick="togglePopup()">
+                    <div class="icon bg-sccss-bluex">
+                        <span class="material-symbols-outlined">local_mall</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>ACTUALIZAR</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item customer bg-sccss-red popupPointer" onclick="togglePopup()">
+                    <div class="icon bg-sccss-redx">
+                        <span class="material-symbols-outlined">person</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>ELIMINAR</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+<script src="../js/popup.js" defer></script>
+<script src="../js/orders.js"></script>
+<script src="../js/index.js"></script>
+<script type="module" src="../js/clientes.js"></script>
+<script type="module" src="../js/endpoints.js"></script>
+
+</html>

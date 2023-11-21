@@ -8,6 +8,6 @@ namespace API.DtosSec
     public class OficinaIdCiudadNombreDto
     {
         public string NombreCiudad { get; set; }
-        public List<OficinaIdDto> Oficinas { get; set; }
+        public string IdOficina { get; set; }
     }
 }

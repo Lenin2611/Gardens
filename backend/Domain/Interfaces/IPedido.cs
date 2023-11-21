@@ -13,6 +13,6 @@ namespace Domain.Interfaces
         Task<IEnumerable<Pedido>> GetPedidos2DiasAntesDateDiffAsync();
         Task<IEnumerable<Pedido>> GetPedidos2DiasAntesOperadorAsync();
         Task<IEnumerable<Pedido>> GetPedidosRechazados2009Async();
-        Task<IEnumerable<Pedido>> GetPedidosEnero(int año);
+        Task<IEnumerable<Pedido>> GetPedidosEnero();
     }
 }
