@@ -45,7 +45,7 @@ namespace API.Controllers
             //return Ok(new { userName, roles, roles2 });
         }
 
-        [HttpGet("usuarios"), Authorize(Roles = "Administrator")]
+        [HttpGet("usuarios")]
         public IActionResult GetUsuarios()
         {
             var query = from usuario in _context.Users

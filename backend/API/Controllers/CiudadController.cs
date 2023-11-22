@@ -14,6 +14,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class CiudadController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -115,17 +117,17 @@ namespace API.Controllers
         public async Task<ActionResult<List<OficinaIdCiudadNombreDto>>> GetOficinasYCiudades()
         {
             var results = await (from oficina in _context.Oficinas
-                        join direccion in _context.Direcciones on oficina.Id equals direccion.IdOficinaFk
-                        join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
-                        select new OficinaIdCiudadNombreDto
-                        {
-                            NombreCiudad = ciudad.Nombre,
-                            IdOficina = oficina.Id
-                        })
+                                 join direccion in _context.Direcciones on oficina.Id equals direccion.IdOficinaFk
+                                 join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
+                                 select new OficinaIdCiudadNombreDto
+                                 {
+                                     NombreCiudad = ciudad.Nombre,
+                                     IdOficina = oficina.Id
+                                 })
                         .ToListAsync();
             return results;
         }
 
-        
+
     }
 }

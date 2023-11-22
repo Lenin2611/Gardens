@@ -21,6 +21,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.ConfigureCors();
 builder.Services.ConfigureRateLimiting();
+builder.Services.ConfigureApiVersioning();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.AddApplicationServices();
 builder.Services.AddSwaggerGen(options =>

@@ -586,6 +586,19 @@ main .recent-orders a{
     }
 }
 
+#pager .pager2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.pager2 .xd{
+    font-size: 1rem;
+    position: relative;
+    bottom: 3px;
+}
+
 /*-----------------------MEDIA QUERIES---------------------------*/
 @media screen and (max-width: 768px){
     .container{
@@ -695,5 +708,10 @@ main .recent-orders a{
 
     .right .top button span{
         font-size: 2rem;
+    }
+
+    #pager .pager2{
+        display: flex;
+        justify-content: center;
     }
 }

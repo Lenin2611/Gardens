@@ -14,6 +14,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class ProductoController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -32,10 +34,10 @@ namespace API.Controllers
         [HttpGet] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<ProductoDto>>> Get()
+        public async Task<ActionResult<IEnumerable<ProductoDto>>> Get(int pageIndex = 1, int pageSize = 1)
         {
-            var results = await _unitOfWork.Productos.GetAllAsync();
-            return _mapper.Map<List<ProductoDto>>(results);
+            var results = await _unitOfWork.Productos.GetAllAsync(pageIndex, pageSize);
+            return _mapper.Map<List<ProductoDto>>(results.registros);
         }
 
         [HttpGet("{id}")] // 2611
@@ -136,7 +138,7 @@ namespace API.Controllers
             List<Producto> result = query.ToList();
 
             return Ok(result);
-                }
+        }
 
         // [HttpGet("productosSinPedidosDetalle")]
         // [ProducesResponseType(StatusCodes.Status200OK)]
@@ -178,6 +180,7 @@ namespace API.Controllers
             return Ok(top20);
         }
         [HttpGet("ProductosSinPedidosEXISTS")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -192,6 +195,7 @@ namespace API.Controllers
             return Ok(productosSinPedidos);
         }
         [HttpGet("ProductosConPedidosEXISTS")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -225,6 +229,7 @@ namespace API.Controllers
         }
 
         [HttpGet("productoMax")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<List<ProductoMaxDto>>> GetProductoMax()
@@ -238,6 +243,7 @@ namespace API.Controllers
         }
 
         [HttpGet("productoMin")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<List<ProductoMinDto>>> GetProductoMin()

@@ -14,6 +14,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class PedidoController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -30,10 +32,10 @@ namespace API.Controllers
         [HttpGet] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<PedidoDto>>> Get()
+        public async Task<ActionResult<IEnumerable<PedidoDto>>> Get(int pageIndex = 1, int pageSize = 1)
         {
-            var results = await _unitOfWork.Pedidos.GetAllAsync();
-            return _mapper.Map<List<PedidoDto>>(results);
+            var results = await _unitOfWork.Pedidos.GetAllAsync(pageIndex,pageSize);
+            return _mapper.Map<List<PedidoDto>>(results.registros);
         }
 
         [HttpGet("{id}")] // 2611
@@ -149,7 +151,8 @@ namespace API.Controllers
             return _mapper.Map<List<PedidoIdClienteIdFechaEntregaDto>>(result);
         }
 
-        [HttpGet("pedido2diasantesAddDate")] // 2611
+        [HttpGet("pedido2diasantesAddDate")]
+        [ApiVersion("1.0")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -163,7 +166,8 @@ namespace API.Controllers
             return _mapper.Map<List<PedidoIdClienteIdFechaEntregaDto>>(result);
         }
 
-        [HttpGet("pedido2diasantesdatediff")] // 2611
+        [HttpGet("pedido2diasantesdatediff")]
+        [ApiVersion("1.1")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -226,19 +230,19 @@ namespace API.Controllers
         public async Task<ActionResult<List<PagoCantidadEstadoDto>>> GetCantidadPedidos()
         {
             var results = await (from pedido in _context.Pedidos
-                        join estado in _context.Estados on pedido.IdEstadoFk equals estado.Id
-                        select new PagoCantidadEstadoDto
-                        {
-                            Estado = estado.Nombre,
-                            Count = 0
-                            
-                        })
+                                 join estado in _context.Estados on pedido.IdEstadoFk equals estado.Id
+                                 select new PagoCantidadEstadoDto
+                                 {
+                                     Estado = estado.Nombre,
+                                     Count = 0
+
+                                 })
                         .ToListAsync();
             var pagoEstados = new List<PagoCantidadEstadoDto>();
             foreach (var p in results)
             {
                 var existingCountry = pagoEstados.FirstOrDefault(x => x.Estado == p.Estado);
-                
+
                 if (existingCountry != null)
                 {
                     existingCountry.Count += 1;

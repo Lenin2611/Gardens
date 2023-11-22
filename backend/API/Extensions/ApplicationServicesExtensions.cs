@@ -12,6 +12,8 @@ using Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Extensions
 {
@@ -55,5 +57,14 @@ namespace API.Extensions
                 };
             });
         }
+
+        public static void ConfigureApiVersioning(this IServiceCollection services)
+        {
+            services.AddApiVersioning(options => {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ApiVersionReader = new QueryStringApiVersionReader("ver");
+            });
+        } 
     }
 }

@@ -14,6 +14,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class EmpleadoController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -30,10 +32,10 @@ namespace API.Controllers
         [HttpGet] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get()
+        public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get(int pageIndex = 1, int pageSize = 1)
         {
-            var results = await _unitOfWork.Empleados.GetAllAsync();
-            return _mapper.Map<List<EmpleadoDto>>(results);
+            var results = await _unitOfWork.Empleados.GetAllAsync(pageIndex, pageSize);
+            return _mapper.Map<List<EmpleadoDto>>(results.registros);
         }
 
         [HttpGet("{id}")] // 2611
@@ -108,7 +110,8 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpGet("empleados7")] // 2611
+        [HttpGet("empleados7")]
+        [ApiVersion("1.0")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -122,22 +125,23 @@ namespace API.Controllers
             return _mapper.Map<List<EmpleadoNombreApellidosEmailDto>>(result);
         }
 
-        [HttpGet("empleadojefe")] // 2611
+        [HttpGet("empleadojefe")]
+        [ApiVersion("1.1")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<List<EmpleadoPuestoNombreApellidosEmailDto>>> GetEmpleadoPuestoNombreApellidosEmail()
         {
             var results = await (from puesto in _context.Puestos
-                        join empleado in _context.Empleados on puesto.Id equals empleado.IdPuestoFk
-                        where puesto.Nombre.ToLower().Trim() == "director general"
-                        select new EmpleadoPuestoNombreApellidosEmailDto
-                        {
-                            Puesto = puesto.Nombre,
-                            Nombre = empleado.Nombre,
-                            Apellido = empleado.Apellido,
-                            Email = empleado.Email
-                        })
+                                 join empleado in _context.Empleados on puesto.Id equals empleado.IdPuestoFk
+                                 where puesto.Nombre.ToLower().Trim() == "director general"
+                                 select new EmpleadoPuestoNombreApellidosEmailDto
+                                 {
+                                     Puesto = puesto.Nombre,
+                                     Nombre = empleado.Nombre,
+                                     Apellido = empleado.Apellido,
+                                     Email = empleado.Email
+                                 })
                         .ToListAsync();
             return results;
         }
@@ -149,14 +153,14 @@ namespace API.Controllers
         public async Task<ActionResult<List<EmpleadoNombreApellidoPuestoDto>>> GetEmpleadoPuestoNombreApellido()
         {
             var results = await (from puesto in _context.Puestos
-                        join empleado in _context.Empleados on puesto.Id equals empleado.IdPuestoFk
-                        where puesto.Nombre.ToLower().Trim() != "representante de ventas"
-                        select new EmpleadoNombreApellidoPuestoDto
-                        {
-                            Puesto = puesto.Nombre,
-                            Nombre = empleado.Nombre,
-                            Apellido = empleado.Apellido,
-                        })
+                                 join empleado in _context.Empleados on puesto.Id equals empleado.IdPuestoFk
+                                 where puesto.Nombre.ToLower().Trim() != "representante de ventas"
+                                 select new EmpleadoNombreApellidoPuestoDto
+                                 {
+                                     Puesto = puesto.Nombre,
+                                     Nombre = empleado.Nombre,
+                                     Apellido = empleado.Apellido,
+                                 })
                         .ToListAsync();
             return results;
         }
@@ -168,16 +172,17 @@ namespace API.Controllers
         public IActionResult GetCantidadClientes()
         {
             var query = (from empleado in _context.Empleados
-                    select new
-                    {
-                        Cantidad = _context.Empleados.Count()
-                    }).Distinct();
+                         select new
+                         {
+                             Cantidad = _context.Empleados.Count()
+                         }).Distinct();
 
             List<object> result = query.ToList<object>();
 
             return Ok(result);
         }
         [HttpGet("empleadosConJefes")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -199,6 +204,7 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpGet("empleadosJefesDeJefe")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -261,6 +267,7 @@ namespace API.Controllers
         }
 
         [HttpGet("empleadosSinClienteYOficina")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -285,34 +292,35 @@ namespace API.Controllers
         }
 
         [HttpGet("empleadosSinOficinaYCliente")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetEmpleadosSinOficinaYCliente()
         {
             var queryOficina = from empleado in _context.Empleados
-                            join oficina in _context.Oficinas on empleado.IdOficinaFk equals oficina.Id into oficinasEmpleado
-                            from oficinaEmpleado in oficinasEmpleado.DefaultIfEmpty()
-                            where oficinaEmpleado == null
-                            select new
-                            {
-                                Empleado = empleado.Nombre,
-                                Apellido = empleado.Apellido,
-                                Email = empleado.Email,
-                                Tipo = "Sin oficina"
-                            };
+                               join oficina in _context.Oficinas on empleado.IdOficinaFk equals oficina.Id into oficinasEmpleado
+                               from oficinaEmpleado in oficinasEmpleado.DefaultIfEmpty()
+                               where oficinaEmpleado == null
+                               select new
+                               {
+                                   Empleado = empleado.Nombre,
+                                   Apellido = empleado.Apellido,
+                                   Email = empleado.Email,
+                                   Tipo = "Sin oficina"
+                               };
 
             var queryCliente = from empleado in _context.Empleados
-                            join cliente in _context.Clientes on empleado.Id equals cliente.IdEmpleadoRepresentanteVentasFk into clientesEmpleado
-                            from clienteEmpleado in clientesEmpleado.DefaultIfEmpty()
-                            where clienteEmpleado == null
-                            select new
-                            {
-                                Empleado = empleado.Nombre,
-                                Apellido = empleado.Apellido,
-                                Email = empleado.Email,
-                                Tipo = "Sin cliente"
-                            };
+                               join cliente in _context.Clientes on empleado.Id equals cliente.IdEmpleadoRepresentanteVentasFk into clientesEmpleado
+                               from clienteEmpleado in clientesEmpleado.DefaultIfEmpty()
+                               where clienteEmpleado == null
+                               select new
+                               {
+                                   Empleado = empleado.Nombre,
+                                   Apellido = empleado.Apellido,
+                                   Email = empleado.Email,
+                                   Tipo = "Sin cliente"
+                               };
 
             var result = queryOficina.Union(queryCliente);
 

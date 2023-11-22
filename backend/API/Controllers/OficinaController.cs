@@ -13,6 +13,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class OficinaController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -31,10 +33,10 @@ namespace API.Controllers
         [HttpGet] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<OficinaDto>>> Get()
+        public async Task<ActionResult<IEnumerable<OficinaDto>>> Get(int pageIndex = 1, int pageSize = 1)
         {
-            var results = await _unitOfWork.Oficinas.GetAllAsync();
-            return _mapper.Map<List<OficinaDto>>(results);
+            var results = await _unitOfWork.Oficinas.GetAllAsync(pageIndex, pageSize);
+            return _mapper.Map<List<OficinaDto>>(results.registros);
         }
 
         [HttpGet("{id}")] // 2611
@@ -108,8 +110,9 @@ namespace API.Controllers
             await _unitOfWork.SaveAsync();
             return NoContent();
         }
-        
+
         [HttpGet("oficinasSinEmpleadosRepresentantesDeFrutales")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetOficinasSinEmpleadosRepresentantesDeFrutales()
@@ -128,7 +131,8 @@ namespace API.Controllers
                                     )
                                 )
                         )
-                        select new {
+                        select new
+                        {
                             Id = oficina.Id,
                             Telefono = oficina.Telefono
                         };
@@ -138,6 +142,7 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpGet("oficinasSinRepresentantesVentasFrutales")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

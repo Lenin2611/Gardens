@@ -12,7 +12,8 @@
     <!---Styles--->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/sidebar.css">
-    
+    <link rel="stylesheet" href="../css/popup.css">
+
 </head>
 
 <body>
@@ -64,14 +65,14 @@
                 <a href="iEmpleados.html">
                     <span class="material-symbols-outlined">
                         support_agent
-                        </span>
+                    </span>
                     <h3>Empleados</h3>
                 </a>
 
                 <a href="iUsuarios.html">
                     <span class="material-symbols-outlined">
                         group
-                        </span>
+                    </span>
                     <h3>Usuarios</h3>
                 </a>
 
@@ -152,6 +153,23 @@
 
             <div class="recent-orders">
                 <h2>Pagos Recientes</h2>
+                <div id="pager">
+                    <div class="pager2" >
+                        <div id="previousa" class="income popupPointer">
+                            <span class="material-symbols-outlined">
+                                arrow_left
+                            </span>
+                        </div>
+    
+                        <span class="xd">Página actual: <span id="currentPagea">1</span></span>
+    
+                        <div id="nexta" class="income popupPointer">
+                            <span class="material-symbols-outlined">
+                                arrow_right
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -233,7 +251,7 @@
                 <div class="item online">
                     <div class="icon">
                         <span class="material-symbols-outlined">shopping_cart</span>
-                    </div> 
+                    </div>
                     <div class="right">
                         <div class="info">
                             <h3>ORDENES ONLINE</h3>
@@ -275,9 +293,9 @@
         </div>
     </div>
     <!-- Cambia "js/order,js" a "js/order.js" -->
-<script src="../js/orders.js"></script>
-<script src="../js/index.js"></script>
-<script type="module" src="../js/clientes.js"></script>
+    <script src="../js/orders.js"></script>
+    <script src="../js/index.js"></script>
+    <script type="module" src="../js/pago.js"></script>
 </body>
 
 </html>

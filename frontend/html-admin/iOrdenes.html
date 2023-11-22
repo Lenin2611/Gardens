@@ -103,6 +103,23 @@
 
             <div class="recent-orders">
                 <h2>Pedidos</h2>
+                <div id="pager">
+                    <div class="pager2" >
+                        <div id="previousp" class="income popupPointer">
+                            <span class="material-symbols-outlined">
+                                arrow_left
+                            </span>
+                        </div>
+    
+                        <span class="xd">Página actual: <span id="currentPagep">1</span></span>
+    
+                        <div id="nextp" class="income popupPointer">
+                            <span class="material-symbols-outlined">
+                                arrow_right
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -113,7 +130,7 @@
                             <th>Comentarios</th>
                         </tr>
                     </thead>
-                    <tbody id="ordenes">
+                    <tbody id="pedidos">
                         <!-- <tr>
                             <td>Planta para cerca zungla</td>
                             <td>15000</td>
@@ -187,7 +204,7 @@
     <script src="../js/popup.js" defer></script>
     <script src="../js/orders.js"></script>
     <script src="../js/index.js"></script>
-    <script type="module" src="../js/clientes.js"></script>
+    <script type="module" src="../js/pedidos.js"></script>
     <script type="module" src="../js/endpoints.js"></script>
 
 </body>

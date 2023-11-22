@@ -11,6 +11,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class DireccionController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -114,13 +116,13 @@ namespace API.Controllers
         public IActionResult GetDireccionClientesFuenlabrada()
         {
             var query = (from direccion in _context.Direcciones
-                        join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
-                        join cliente in _context.Clientes on direccion.Id equals cliente.IdDireccionFk
-                        where ciudad.Nombre == "Fuenlabrada"
-                        select new
-                        {
-                            DireccionOficina = direccion
-                        }).Distinct();
+                         join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
+                         join cliente in _context.Clientes on direccion.Id equals cliente.IdDireccionFk
+                         where ciudad.Nombre == "Fuenlabrada"
+                         select new
+                         {
+                             DireccionOficina = direccion
+                         }).Distinct();
 
             List<object> result = query.ToList<object>();
             return Ok(result);

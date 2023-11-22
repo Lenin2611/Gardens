@@ -14,6 +14,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class PaisController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -119,7 +121,7 @@ namespace API.Controllers
         //     {
         //         return NotFound();
         //     }
-            
+
         //     return _mapper.Map<DireccionClienteDto>(result);
         // }
 
@@ -144,17 +146,17 @@ namespace API.Controllers
         public async Task<ActionResult<List<OficinaIdTelefonoDto>>> GetOficinasByPais()
         {
             var results = await (from oficina in _context.Oficinas
-                        join direccion in _context.Direcciones on oficina.Id equals direccion.IdOficinaFk
-                        join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
-                        join region in _context.Regiones on ciudad.IdRegionFk equals region.Id
-                        join pais in _context.Paises on region.IdPaisFk equals pais.Id
-                        where pais.Nombre == "España"
-                        select new OficinaIdTelefonoDto
-                        {
-                            Id = oficina.Id,
-                            Telefono = oficina.Telefono,
-                            Ciudad = ciudad.Nombre
-                        })
+                                 join direccion in _context.Direcciones on oficina.Id equals direccion.IdOficinaFk
+                                 join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
+                                 join region in _context.Regiones on ciudad.IdRegionFk equals region.Id
+                                 join pais in _context.Paises on region.IdPaisFk equals pais.Id
+                                 where pais.Nombre == "España"
+                                 select new OficinaIdTelefonoDto
+                                 {
+                                     Id = oficina.Id,
+                                     Telefono = oficina.Telefono,
+                                     Ciudad = ciudad.Nombre
+                                 })
                         .ToListAsync();
             return results;
         }

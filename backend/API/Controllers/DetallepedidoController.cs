@@ -11,6 +11,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class DetallepedidoController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,10 +31,10 @@ namespace API.Controllers
         [HttpGet] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<DetallepedidoDto>>> Get()
+        public async Task<ActionResult<IEnumerable<DetallepedidoDto>>> Get(int pageIndex = 1, int pageSize = 1)
         {
-            var results = await _unitOfWork.Detallepedidos.GetAllAsync();
-            return _mapper.Map<List<DetallepedidoDto>>(results);
+            var results = await _unitOfWork.Detallepedidos.GetAllAsync(pageIndex, pageSize);
+            return _mapper.Map<List<DetallepedidoDto>>(results.registros);
         }
 
         [HttpGet("{id}")] // 2611
@@ -157,6 +159,7 @@ namespace API.Controllers
         }
 
         [HttpGet("facturacionTotalPorProducto")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -179,6 +182,7 @@ namespace API.Controllers
         }
 
         [HttpGet("facturacionPorCodigoOR")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -251,7 +255,7 @@ namespace API.Controllers
             var sumaTotalPorAnio = query.ToList();
             return Ok(sumaTotalPorAnio);
         }
-        
+
         [HttpGet("productoMasVendido")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -14,6 +14,8 @@ using Persistence.Data;
 
 namespace API.Controllers
 {
+    [ApiVersion("1.0")]
+    [ApiVersion("1.1")]
     public class ClienteController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -27,14 +29,15 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet] // 2611
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<ClienteDto>>> Get()
+        public async Task<ActionResult<IEnumerable<ClienteDto>>> Get(int pageIndex = 1, int pageSize = 1)
         {
-            var results = await _unitOfWork.Clientes.GetAllAsync();
-            return _mapper.Map<List<ClienteDto>>(results);
+            var results = await _unitOfWork.Clientes.GetAllAsync(pageIndex, pageSize);
+            return _mapper.Map<List<ClienteDto>>(results.registros);
         }
+
 
         [HttpGet("{id}")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -129,22 +132,22 @@ namespace API.Controllers
         public async Task<ActionResult<List<ClientesCantidadPaisDto>>> GetCantidadClientesById()
         {
             var results = await (from cliente in _context.Clientes
-                        join direccion in _context.Direcciones on cliente.IdDireccionFk equals direccion.Id
-                        join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
-                        join region in _context.Regiones on ciudad.IdRegionFk equals region.Id
-                        join pais in _context.Paises on region.IdPaisFk equals pais.Id
-                        select new ClientesCantidadPaisDto
-                        {
-                            Pais = pais.Nombre,
-                            Count = 0
-                            
-                        })
+                                 join direccion in _context.Direcciones on cliente.IdDireccionFk equals direccion.Id
+                                 join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
+                                 join region in _context.Regiones on ciudad.IdRegionFk equals region.Id
+                                 join pais in _context.Paises on region.IdPaisFk equals pais.Id
+                                 select new ClientesCantidadPaisDto
+                                 {
+                                     Pais = pais.Nombre,
+                                     Count = 0
+
+                                 })
                         .ToListAsync();
             var paisesClientes = new List<ClientesCantidadPaisDto>();
             foreach (var p in results)
             {
                 var existingCountry = paisesClientes.FirstOrDefault(x => x.Pais == p.Pais);
-                
+
                 if (existingCountry != null)
                 {
                     existingCountry.Count += 1;
@@ -168,60 +171,62 @@ namespace API.Controllers
         public IActionResult GetCantidadClientes()
         {
             var query = (from cliente in _context.Clientes
-                    select new
-                    {
-                        Cantidad = _context.Clientes.Count()
-                    }).Distinct();
+                         select new
+                         {
+                             Cantidad = _context.Clientes.Count()
+                         }).Distinct();
 
             List<object> result = query.ToList<object>();
 
             return Ok(result);
         }
 
-        [HttpGet("cantidadclientesmadrid")] // 2611
+        [HttpGet("cantidadclientesmadrid")]
+        [ApiVersion("1.0")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public int GetCantidadClientesMadrid()
         {
             var results = (from cliente in _context.Clientes
-                        join direccion in _context.Direcciones on cliente.IdDireccionFk equals direccion.Id
-                        join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
-                        where ciudad.Nombre == "Madrid"
-                        select new ClienteNombreDto
-                        {
-                            Nombre = cliente.Nombre
-                        }).ToList();
+                           join direccion in _context.Direcciones on cliente.IdDireccionFk equals direccion.Id
+                           join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
+                           where ciudad.Nombre == "Madrid"
+                           select new ClienteNombreDto
+                           {
+                               Nombre = cliente.Nombre
+                           }).ToList();
             int suma = 0;
-            foreach(var c in results)
+            foreach (var c in results)
             {
                 suma += 1;
             }
             return suma;
         }
 
-        [HttpGet("cantidadclientesciudadm")] // 2611
+        [HttpGet("cantidadclientesciudadm")]
+        [ApiVersion("1.1")] // 2611
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<List<ClientesCantidadCiudadDto>>> GetCantidadClientesByCiudadM()
         {
             var results = await (from cliente in _context.Clientes
-                        join direccion in _context.Direcciones on cliente.IdDireccionFk equals direccion.Id
-                        join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
-                        where ciudad.Nombre.StartsWith("M")
-                        select new ClientesCantidadCiudadDto
-                        {
-                            Ciudad = ciudad.Nombre,
-                            Count = 0
-                            
-                        })
+                                 join direccion in _context.Direcciones on cliente.IdDireccionFk equals direccion.Id
+                                 join ciudad in _context.Ciudades on direccion.IdCiudadFk equals ciudad.Id
+                                 where ciudad.Nombre.StartsWith("M")
+                                 select new ClientesCantidadCiudadDto
+                                 {
+                                     Ciudad = ciudad.Nombre,
+                                     Count = 0
+
+                                 })
                         .ToListAsync();
             var ciudadesClientes = new List<ClientesCantidadCiudadDto>();
             foreach (var p in results)
             {
                 var existingCiudad = ciudadesClientes.FirstOrDefault(x => x.Ciudad == p.Ciudad);
-                
+
                 if (existingCiudad != null)
                 {
                     existingCiudad.Count += 1;
@@ -245,10 +250,10 @@ namespace API.Controllers
         public async Task<ActionResult<int>> GetCantidadClientesSinRepresentante()
         {
             var results = await (from cliente in _context.Clientes
-                join empleado in _context.Empleados on cliente.IdEmpleadoRepresentanteVentasFk equals empleado.Id
-                join puesto in _context.Puestos on empleado.IdPuestoFk equals puesto.Id
-                where puesto.Nombre == "Representante de Ventas"
-                select cliente.Nombre
+                                 join empleado in _context.Empleados on cliente.IdEmpleadoRepresentanteVentasFk equals empleado.Id
+                                 join puesto in _context.Puestos on empleado.IdPuestoFk equals puesto.Id
+                                 where puesto.Nombre == "Representante de Ventas"
+                                 select cliente.Nombre
             )
             .ToListAsync();
             int x = results.Count();
@@ -269,6 +274,7 @@ namespace API.Controllers
             return _mapper.Map<List<ClienteRepresentanteVentasDto>>(result);
         }
         [HttpGet("clientesPagosRepresentantes")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -282,6 +288,7 @@ namespace API.Controllers
             return _mapper.Map<List<ClientePagosRepresentanteDto>>(result);
         }
         [HttpGet("clientesNoPagosRepresentantes")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -295,44 +302,46 @@ namespace API.Controllers
             return _mapper.Map<List<ClientePagosRepresentanteDto>>(result);
         }
         [HttpGet("clientesPagosRepresentantesCiudad")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetClientesPagosRepresentantesCiudad()
         {
-        var query = (from pago in _context.Pagos
-                    join cliente in _context.Clientes on pago.IdClienteFk equals cliente.Id
-                    join representante in _context.Empleados on cliente.IdEmpleadoRepresentanteVentasFk equals representante.Id
-                    join direccionRepresentante in _context.Direcciones on representante.IdDireccionFk equals direccionRepresentante.Id
-                    join ciudadRepresentante in _context.Ciudades on direccionRepresentante.IdCiudadFk equals ciudadRepresentante.Id
-                    select new
-                    {
-                        NombreCliente = cliente.Nombre,
-                        NombreRepresentante = representante.Nombre,
-                        CiudadRepresentante = ciudadRepresentante.Nombre
-                    }).Distinct();
+            var query = (from pago in _context.Pagos
+                         join cliente in _context.Clientes on pago.IdClienteFk equals cliente.Id
+                         join representante in _context.Empleados on cliente.IdEmpleadoRepresentanteVentasFk equals representante.Id
+                         join direccionRepresentante in _context.Direcciones on representante.IdDireccionFk equals direccionRepresentante.Id
+                         join ciudadRepresentante in _context.Ciudades on direccionRepresentante.IdCiudadFk equals ciudadRepresentante.Id
+                         select new
+                         {
+                             NombreCliente = cliente.Nombre,
+                             NombreRepresentante = representante.Nombre,
+                             CiudadRepresentante = ciudadRepresentante.Nombre
+                         }).Distinct();
 
             List<object> result = query.ToList<object>();
 
             return Ok(result);
         }
         [HttpGet("clientesNoPagosRepresentantesCiudad")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetClientesSinPagosDetalles()
         {
             var query = (from cliente in _context.Clientes
-                        join representante in _context.Empleados on cliente.IdEmpleadoRepresentanteVentasFk equals representante.Id
-                        join direccionRepresentante in _context.Direcciones on representante.IdDireccionFk equals direccionRepresentante.Id
-                        join ciudadRepresentante in _context.Ciudades on direccionRepresentante.IdCiudadFk equals ciudadRepresentante.Id
-                        where !_context.Pagos.Any(p => p.IdClienteFk == cliente.Id)
-                        select new
-                        {
-                            NombreCliente = cliente.Nombre,
-                            NombreRepresentante = representante.Nombre,
-                            CiudadRepresentante = ciudadRepresentante.Nombre
-                        }).Distinct();
+                         join representante in _context.Empleados on cliente.IdEmpleadoRepresentanteVentasFk equals representante.Id
+                         join direccionRepresentante in _context.Direcciones on representante.IdDireccionFk equals direccionRepresentante.Id
+                         join ciudadRepresentante in _context.Ciudades on direccionRepresentante.IdCiudadFk equals ciudadRepresentante.Id
+                         where !_context.Pagos.Any(p => p.IdClienteFk == cliente.Id)
+                         select new
+                         {
+                             NombreCliente = cliente.Nombre,
+                             NombreRepresentante = representante.Nombre,
+                             CiudadRepresentante = ciudadRepresentante.Nombre
+                         }).Distinct();
 
             List<object> result = query.ToList<object>();
 
@@ -360,6 +369,7 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpGet("clientesConPedidosRetrasados")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -379,6 +389,7 @@ namespace API.Controllers
         }
 
         [HttpGet("clientesSinPagosLeftJoin")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -397,6 +408,7 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpGet("clientesSinPedidosLeftJoin")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -418,30 +430,31 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpGet("clientesSinPagosYPedidos")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetClientesSinPagosYPedidos()
         {
             var queryPagos = from cliente in _context.Clientes
-                            join pago in _context.Pagos on cliente.Id equals pago.IdClienteFk into pagosCliente
-                            from pagoCliente in pagosCliente.DefaultIfEmpty()
-                            where pagoCliente == null
-                            select new
-                            {
-                                NombreCliente = cliente.Nombre,
-                                Tipo = "Sin pago"
-                            };
+                             join pago in _context.Pagos on cliente.Id equals pago.IdClienteFk into pagosCliente
+                             from pagoCliente in pagosCliente.DefaultIfEmpty()
+                             where pagoCliente == null
+                             select new
+                             {
+                                 NombreCliente = cliente.Nombre,
+                                 Tipo = "Sin pago"
+                             };
 
             var queryPedidos = from cliente in _context.Clientes
-                            join pedido in _context.Pedidos on cliente.Id equals pedido.IdClienteFk into pedidosCliente
-                            from pedidoCliente in pedidosCliente.DefaultIfEmpty()
-                            where pedidoCliente == null
-                            select new
-                            {
-                                NombreCliente = cliente.Nombre,
-                                Tipo = "Sin pedido"
-                            };
+                               join pedido in _context.Pedidos on cliente.Id equals pedido.IdClienteFk into pedidosCliente
+                               from pedidoCliente in pedidosCliente.DefaultIfEmpty()
+                               where pedidoCliente == null
+                               select new
+                               {
+                                   NombreCliente = cliente.Nombre,
+                                   Tipo = "Sin pedido"
+                               };
 
             var result = queryPagos.Union(queryPedidos);
             List<object> resultList = result.ToList<object>();
@@ -464,7 +477,8 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("clientesSinPagos")] // Implicit Exists
+        [HttpGet("clientesSinPagos")]
+        [ApiVersion("1.0")] // Implicit Exists
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -479,7 +493,8 @@ namespace API.Controllers
             return Ok(clientesSinPagos);
         }
 
-        [HttpGet("clientesConPagos")] // Implicit Exists
+        [HttpGet("clientesConPagos")]
+        [ApiVersion("1.1")] // Implicit Exists
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -653,6 +668,7 @@ namespace API.Controllers
             return Ok(clientesLimiteCreditoMayorPagos);
         }
         [HttpGet("clientesSinPagos2")]
+        [ApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -667,6 +683,7 @@ namespace API.Controllers
             return Ok(clientesSinPagos);
         }
         [HttpGet("clientesConPagos2")]
+        [ApiVersion("1.1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

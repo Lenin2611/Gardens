@@ -57,8 +57,7 @@ public class GenericRepositoryString<T> : IGenericRepositoryString<T> where T : 
     }
     public virtual async Task<(int totalRegistros, IEnumerable<T> registros)> GetAllAsync(
         int pageIndex,
-        int pageSize,
-        string _search
+        int pageSize
     )
     {
         var totalRegistros = await _context.Set<T>().CountAsync();
